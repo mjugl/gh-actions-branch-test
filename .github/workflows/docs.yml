@@ -60,5 +60,4 @@ jobs:
         shell: bash
         run: |
           git add --all .
-          git commit -m "Add build files"
-          git push -u origin ${{ env.BUILD_BRANCH_NAME }}
+          git commit -m "Add build files" && git push -u origin ${{ env.BUILD_BRANCH_NAME }} || true
