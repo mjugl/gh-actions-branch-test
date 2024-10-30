@@ -37,8 +37,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: '0'  # don't actually need to pull anything from remote
-        run: |
-          ls -lah
+      - name: Inspect
+        run: ls -lah
       - name: Download docs
         uses: actions/download-artifact@v4
         with:
