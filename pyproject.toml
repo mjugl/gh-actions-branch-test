@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "github-actions-branch-test"
+version = "0.1.0"
+description = ""
+authors = ["Maximilian Jugl <Maximilian.Jugl@medizin.uni-leipzig.de>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+mkdocs = "^1.6.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
