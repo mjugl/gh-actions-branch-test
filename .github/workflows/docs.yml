@@ -30,7 +30,15 @@ jobs:
   push-docs:
     runs-on: ubuntu-latest
     needs: build-and-deploy-docs
+    permissions:
+      contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'  # don't actually need to pull anything from remote
+        run: |
+          ls -lah
       - name: Download docs
         uses: actions/download-artifact@v4
         with:
