@@ -56,12 +56,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: docs
-      - name: Print
+      - name: Push to remote
         shell: bash
         run: |
-          echo BRANCH
-          git branch --show-current
-          echo CONFIG
-          git config -l
-          echo LS
-          ls -lah
+          git add -a .
+          git commit -m "Add build files"
+          git push -u origin ${{ env.BUILD_BRANCH_NAME }}
