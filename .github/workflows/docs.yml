@@ -48,7 +48,7 @@ jobs:
       - name: Setup repository
         shell: bash
         run: |
-          git checkout ${{ env.BUILD_BRANCH_NAME }} 2>/dev/null || git checkout -b ${{ env.BUILD_BRANCH_NAME }}
+          git checkout ${{ env.BUILD_BRANCH_NAME }} 2>/dev/null || git checkout --orphan ${{ env.BUILD_BRANCH_NAME }}
           git config user.name "Push to branch action"
           git config user.email "default-push-to-branch-action@users.noreply.github.com"
       - name: Download docs
