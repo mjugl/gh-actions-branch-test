@@ -41,14 +41,16 @@ jobs:
         id: checkout-existing
         continue-on-error: true
         with:
-          ref: ${env.BUILD_BRANCH_NAME}
+          ref: ${{ env.BUILD_BRANCH_NAME }}
       - name: Default checkout
         uses: actions/checkout@v4
         if: steps.checkout-existing.outcome == 'failure'
-      - name: Switch to build branch
+      - name: Setup repository
         shell: bash
         run: |
           git checkout ${{ env.BUILD_BRANCH_NAME }} 2>/dev/null || git checkout -b ${{ env.BUILD_BRANCH_NAME }}
+          git config user.name "Push to branch action"
+          git config user.email "default-push-to-branch-action@users.noreply.github.com"
       - name: Download docs
         uses: actions/download-artifact@v4
         with:
