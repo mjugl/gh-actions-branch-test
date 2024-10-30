@@ -1,5 +1,8 @@
 name: Build and deploy docs
 
+env:
+  BUILD_BRANCH_NAME: build
+
 on:
   push:
     branches:
@@ -33,16 +36,29 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout
+      - name: Checkout existing branch
         uses: actions/checkout@v4
+        id: checkout-existing
+        continue-on-error: true
         with:
-          fetch-depth: '0'  # don't actually need to pull anything from remote
-      - name: Inspect
-        run: ls -lah
+          ref: ${env.BUILD_BRANCH_NAME}
+      - name: Default checkout
+        uses: actions/checkout@v4
+        if: steps.checkout-existing.outcome == 'failure'
+      - name: Switch to build branch
+        shell: bash
+        run: |
+          git checkout ${env.BUILD_BRANCH_NAME} 2>/dev/null || git checkout -b ${env.BUILD_BRANCH_NAME}
       - name: Download docs
         uses: actions/download-artifact@v4
         with:
           name: docs
       - name: Print
         shell: bash
-        run: ls -lah
+        run: |
+          echo BRANCH
+          git branch --show-current
+          echo CONFIG
+          git config -l
+          echo LS
+          ls -lah
