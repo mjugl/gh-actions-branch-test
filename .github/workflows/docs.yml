@@ -48,7 +48,7 @@ jobs:
       - name: Switch to build branch
         shell: bash
         run: |
-          git checkout ${env.BUILD_BRANCH_NAME} 2>/dev/null || git checkout -b ${env.BUILD_BRANCH_NAME}
+          git checkout ${{ env.BUILD_BRANCH_NAME }} 2>/dev/null || git checkout -b ${{ env.BUILD_BRANCH_NAME }}
       - name: Download docs
         uses: actions/download-artifact@v4
         with:
