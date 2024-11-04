@@ -50,7 +50,7 @@ jobs:
         run: |
           git checkout ${{ env.BUILD_BRANCH_NAME }} 2>/dev/null || git checkout --orphan ${{ env.BUILD_BRANCH_NAME }}
           git config user.name "Push to branch action"
-          git config user.email "default-push-to-branch-action@users.noreply.github.com"
+          git config user.email "${{ github.actor || 'push-to-branch-action' }}@users.noreply.github.com"
           git rm -rf '*'
       - name: Download docs
         uses: actions/download-artifact@v4
@@ -60,4 +60,4 @@ jobs:
         shell: bash
         run: |
           git add --all .
-          git commit --no-verify -m "Add build files" && git push -u origin ${{ env.BUILD_BRANCH_NAME }} || true
+          git commit --no-verify -m "Deploying from @ ${{ github.sha }}" && git push -u origin ${{ env.BUILD_BRANCH_NAME }} || true
